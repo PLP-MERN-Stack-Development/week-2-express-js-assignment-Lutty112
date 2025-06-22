@@ -1,63 +1,206 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=19742069&assignment_repo_type=AssignmentRepo)
-# Express.js RESTful API Assignment
 
-This assignment focuses on building a RESTful API using Express.js, implementing proper routing, middleware, and error handling.
+# 🛒 Product API - Express.js (In-Memory)
 
-## Assignment Overview
+This is a simple Product RESTful API built using **Express.js** with in-memory data storage. It supports CRUD operations, filtering, search, pagination, and basic statistics.
 
-You will:
-1. Set up an Express.js server
-2. Create RESTful API routes for a product resource
-3. Implement custom middleware for logging, authentication, and validation
-4. Add comprehensive error handling
-5. Develop advanced features like filtering, pagination, and search
+---
 
-## Getting Started
+## 📦 Project Structure
 
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Install dependencies:
-   ```
-   npm install
-   ```
-4. Run the server:
-   ```
-   npm start
-   ```
+```
+Server/
+├── routes/
+│   └── productRoutes.js
+├── middleware/
+│   ├── logger.js
+│   ├── auth.js
+│   ├── validateProduct.js
+│   └── errorHandler.js
+├── server.js
+├── .env.example
+├── README.md
+└── package.json
+```
 
-## Files Included
+---
 
-- `Week2-Assignment.md`: Detailed assignment instructions
-- `server.js`: Starter Express.js server file
-- `.env.example`: Example environment variables file
+## 🚀 How to Run the Server
 
-## Requirements
+### 1. Clone the repository
 
-- Node.js (v18 or higher)
-- npm or yarn
-- Postman, Insomnia, or curl for API testing
+```bash
+git clone https://github.com/PLP-MERN-Stack-Development/week-2-express-js-assignment-Lutty112.git
+cd week-2-express-js-assignment-Lutty112
+```
 
-## API Endpoints
+### 2. Install dependencies
 
-The API will have the following endpoints:
+```bash
+npm install
+```
 
-- `GET /api/products`: Get all products
-- `GET /api/products/:id`: Get a specific product
-- `POST /api/products`: Create a new product
-- `PUT /api/products/:id`: Update a product
-- `DELETE /api/products/:id`: Delete a product
+### 3. Set up environment variables
 
-## Submission
+Create a `.env` file based on the `.env.example`:
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
 
-1. Complete all the required API endpoints
-2. Implement the middleware and error handling
-3. Document your API in the README.md
-4. Include examples of requests and responses
+Edit `.env` and add your API key:
+```env
+API_KEY=my_api_key_here
+PORT=3000
+```
 
-## Resources
+### 4. Run the server
 
-- [Express.js Documentation](https://expressjs.com/)
-- [RESTful API Design Best Practices](https://restfulapi.net/)
-- [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) 
+```bash
+pnpm start 
+```
+
+Server will run on:  
+**http://localhost:3000**
+
+---
+
+## 🔐 Authentication
+
+All routes require an API key in the header:
+
+```http
+x-api-key: your_api_key_here
+```
+
+---
+
+## 📡 API Endpoints
+
+### All routes are prefixed with:
+
+` /api/products`
+
+**Headers:**
+```
+x-api-key: your_api_key_here
+```
+## Get All Products
+  GET /api/products
+
+**Success Response:**
+```json
+[
+  {
+    "id": "1",
+    "name": "Laptop",
+    "description": "High-performance laptop with 16GB RAM",
+    "price": 1200,
+    "category": "electronics",
+    "inStock": true
+  }
+]
+```
+
+## Get a Product by ID
+  GET /api/products/:id 
+
+Example:
+GET /api/products/1
+
+**Success Response:**
+```json
+{
+  "id": "1",
+  "name": "Laptop",
+  "description": "High-performance laptop with 16GB RAM",
+  "price": 1200,
+  "category": "electronics",
+  "inStock": true
+}
+
+## Create a Product
+ POST /api/products
+
+**Body:**
+```json
+{
+  "name": "Tablet",
+  "description": "10-inch screen tablet",
+  "price": 300,
+  "category": "electronics",
+  "inStock": true
+}
+
+**Success Response:**
+```json
+{
+  "id": "generated-uuid",
+  "name": "Tablet",
+  "description": "10-inch screen tablet",
+  "price": 300,
+  "category": "electronics",
+  "inStock": true
+}
+
+✏️ Update a Product
+ PUT /api/products/:id
+
+Example:
+PUT /api/products/2
+
+**Body:**
+```json
+{
+  "price": 750,
+  "inStock": false
+}
+**Success Response:**
+```json
+{
+  "id": "2",
+  "name": "Smartphone",
+  "description": "Latest model with 128GB storage",
+  "price": 750,
+  "category": "electronics",
+  "inStock": false
+}
+
+❌ Delete a Product
+ DELETE /api/products/:id
+
+Example:
+DELETE /api/products/3
+
+**Success Response:**
+```json
+{
+  "id": "3",
+  "name": "Coffee Maker",
+  "description": "Programmable coffee maker with timer",
+  "price": 50,
+  "category": "kitchen",
+  "inStock": false
+}
+
+🧩 Middleware Used
+logger – Logs incoming requests
+
+auth – Simulates authentication
+
+validateProduct – Validates product structure for POST and PUT
+
+notFound – Handles unmatched routes
+
+errorHandler – Global error handler
+
+---
+
+## 🧪 Test With Postman
+
+1. Set `x-api-key` header.
+2. Use the above endpoints and test them in Postman.
+---
+
+## 📬 Contact
+
+For any issues or suggestions, please open an issue on GitHub or contact the developer.
+
+---
+
